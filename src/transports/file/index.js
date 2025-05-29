@@ -75,8 +75,9 @@ function fileTransportFactory(electronLog, customRegistry) {
   function archiveLog(file) {
     var oldPath = file.toString();
     var inf = path.parse(oldPath);
+    let actTimestamp = new Date().getTime();
     try {
-      fs.renameSync(oldPath, path.join(inf.dir, inf.name + '.old' + inf.ext));
+      fs.renameSync(oldPath, path.join(inf.dir, inf.name + '-' + actTimestamp + inf.ext));
     } catch (e) {
       logConsole('Could not rotate log', e);
       var quarterOfMaxSize = Math.round(transport.maxSize / 4);
